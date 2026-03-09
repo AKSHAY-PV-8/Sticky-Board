@@ -1,10 +1,18 @@
 import ColorPalette from "../atoms/ColorPalette";
 
-type AddButtonPropType = {
-    onAddNotes: (id: string) => void
+export type ColorsType = {
+    id: number,
+    color: string,
+    selected: boolean
 }
 
-const NavBar = ({ onAddNotes }: AddButtonPropType) => {
+type AddButtonPropType = {
+    colors: ColorsType[],
+    onAddNotes: (id: string) => void,
+    onSelectColor:(id: number) => void
+}
+
+const NavBar = ({onSelectColor, colors, onAddNotes }: AddButtonPropType) => {
 
     return (
         <nav className="bg-white flex justify-between h-17 shadow-2xl items-center">
@@ -12,7 +20,7 @@ const NavBar = ({ onAddNotes }: AddButtonPropType) => {
                 Sticky Notes
             </h1>
             <div className="flex items-center gap-3 mx-3">
-                <ColorPalette />
+                <ColorPalette onSelectColor={onSelectColor} colors={colors} />
                 <button className="border w-13 h-13 rounded-[50%] flex items-center justify-center hover:scale-110 hover:bg-gray-300"
                     onClick={() => onAddNotes(crypto.randomUUID())}>
                     <span className="text-2xl ">➕</span>

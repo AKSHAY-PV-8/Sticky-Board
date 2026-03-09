@@ -2,11 +2,12 @@ import { useState } from "react";
 
 export type Note = {
     id: string,
-    note: string
+    note: string,
+    backgroundColor: string | undefined
 }
 
 type StickyNotePropType = {
-    note: Note
+    note: Note,
     onToggleCloseButton: (id: string) => void,
     onChangeNote: (note: Note) => void
 }
@@ -29,14 +30,15 @@ const StickyNote = ({ note, onToggleCloseButton, onChangeNote }: StickyNotePropT
     }
 
     function handleUpdatedNote(e: React.ChangeEvent<HTMLTextAreaElement, HTMLTextAreaElement>) {
-        onChangeNote({ id: note.id, note: e.target.value })
+        onChangeNote({ id: note.id, note: e.target.value,backgroundColor:note.backgroundColor })
     }
 
 
 
     return (
-        <div className={`h-65 bg-amber-200 rounded-3xl border flex flex-col  justify-center gap-2 p-6 text-[#9aa3b2] hover:scale-101 relative`}
-            onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <div className={`h-65 rounded-3xl border flex flex-col  justify-center gap-2 p-6 text-[#9aa3b2] hover:scale-101 relative`}
+            onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}
+            style={{backgroundColor: note.backgroundColor}}>
             <div className="font-roboto font-bold">{month} {date}, {year}</div>
             <textarea name="" id="" className="focus: outline-none font-caveat text-2xl h-40 text-black"
                 placeholder="Type your note here....."
